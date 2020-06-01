@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/imports/grass_lowres.png" type="Texture" id=1]
 [ext_resource path="res://assets/env/brickwall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/env/shed.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
@@ -76,3 +77,5 @@ environment = SubResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
 transform = Transform( 1, 0, 0, 0, -0.809479, 0.587149, 0, -0.587149, -0.809479, 0, 24.4574, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
