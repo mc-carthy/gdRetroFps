@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "CharacterController",
 "language": "GDScript",
 "path": "res://src/Characters/CharacterController.gd"
+}, {
+"base": "Spatial",
+"class": "HealthController",
+"language": "GDScript",
+"path": "res://src/Characters/HealthController.gd"
 } ]
 _global_script_class_icons={
-"CharacterController": ""
+"CharacterController": "",
+"HealthController": ""
 }
 
 [application]
@@ -84,3 +90,4 @@ exit={
 
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Characters"
+3d_physics/layer_3="Hitboxes"

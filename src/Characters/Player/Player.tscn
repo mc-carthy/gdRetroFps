@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
+[ext_resource path="res://src/Characters/HealthController.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -21,3 +22,6 @@ current = true
 
 [node name="CharacterController" type="Spatial" parent="."]
 script = ExtResource( 2 )
+
+[node name="HealthController" type="Spatial" parent="."]
+script = ExtResource( 3 )
