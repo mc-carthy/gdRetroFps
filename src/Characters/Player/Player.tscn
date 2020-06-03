@@ -1,11 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
 [ext_resource path="res://src/Characters/HealthController.gd" type="Script" id=3]
+[ext_resource path="res://src/Characters/Player/WeaponManager.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.2
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.1
+height = 0.2
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -25,3 +41,29 @@ script = ExtResource( 2 )
 
 [node name="HealthController" type="Spatial" parent="."]
 script = ExtResource( 3 )
+
+[node name="WeaponManager" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="Weapons" type="Spatial" parent="WeaponManager"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+
+[node name="Machete" type="MeshInstance" parent="WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.4 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Shotgun" type="MeshInstance" parent="WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.4 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MachineGun" type="MeshInstance" parent="WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.4 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="RocketLauncher" type="MeshInstance" parent="WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.4 )
+mesh = SubResource( 5 )
+material/0 = null
