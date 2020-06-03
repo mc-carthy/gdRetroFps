@@ -1,10 +1,18 @@
 extends KinematicBody
 
+const HOT_KEYS: Dictionary = {
+	KEY_1: 0,
+	KEY_2: 1,
+	KEY_3: 2,
+	KEY_4: 3
+}
+
 export var mouse_sensitivity: float = 0.5
 
 onready var camera: Camera = $Camera
 onready var character_controller: CharacterController = $CharacterController
 onready var health_controller: HealthController = $HealthController
+onready var weapon_controller: WeaponController = $Camera/WeaponController
 
 var dead: bool = false
 
@@ -36,11 +44,20 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('jump'):
 		character_controller.jump()
 
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= mouse_sensitivity * event.relative.x
 		camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
+	if event is InputEventKey and event.pressed:
+		if event.scancode in HOT_KEYS:
+			weapon_controller.switch_to_weapon_index(HOT_KEYS[event.scancode])
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == BUTTON_WHEEL_DOWN:
+			weapon_controller.switch_to_next_weapon()
+		if event.button_index == BUTTON_WHEEL_UP:
+			weapon_controller.switch_to_prev_weapon()
 
 func hurt(damage: int, dir: Vector3) -> void:
 	health_controller.hurt(damage, dir)

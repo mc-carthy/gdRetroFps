@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "HealthController",
 "language": "GDScript",
 "path": "res://src/Characters/HealthController.gd"
+}, {
+"base": "Spatial",
+"class": "WeaponController",
+"language": "GDScript",
+"path": "res://src/Characters/Player/WeaponController.gd"
 } ]
 _global_script_class_icons={
 "CharacterController": "",
-"HealthController": ""
+"HealthController": "",
+"WeaponController": ""
 }
 
 [application]
