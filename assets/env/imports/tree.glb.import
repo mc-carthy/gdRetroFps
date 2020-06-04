@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/brickwall.glb-340c390ff9c43d8a62981c6099315795.scn"
+path="res://.import/tree.glb-188fa3191efd935b4dac8aa4d6c7c341.scn"
 
 [deps]
 
-source_file="res://assets/imports/brickwall.glb"
-dest_files=[ "res://.import/brickwall.glb-340c390ff9c43d8a62981c6099315795.scn" ]
+source_file="res://assets/env/imports/tree.glb"
+dest_files=[ "res://.import/tree.glb-188fa3191efd935b4dac8aa4d6c7c341.scn" ]
 
 [params]
 

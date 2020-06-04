@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/shed.glb-fb97b38a319b18c5d066eaeac1e09270.scn"
+path="res://.import/shed.glb-ea0b2ee6355a269fcffe3940fcfa3983.scn"
 
 [deps]
 
-source_file="res://assets/imports/shed.glb"
-dest_files=[ "res://.import/shed.glb-fb97b38a319b18c5d066eaeac1e09270.scn" ]
+source_file="res://assets/env/imports/shed.glb"
+dest_files=[ "res://.import/shed.glb-ea0b2ee6355a269fcffe3940fcfa3983.scn" ]
 
 [params]
 

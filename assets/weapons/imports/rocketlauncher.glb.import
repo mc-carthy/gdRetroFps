@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/tree.glb-e3bea2fd92b17b55748bfcad026f1787.scn"
+path="res://.import/rocketlauncher.glb-5ca85b3c3f2fbcd6b7efa982aa80a02a.scn"
 
 [deps]
 
-source_file="res://assets/imports/tree.glb"
-dest_files=[ "res://.import/tree.glb-e3bea2fd92b17b55748bfcad026f1787.scn" ]
+source_file="res://assets/weapons/imports/rocketlauncher.glb"
+dest_files=[ "res://.import/rocketlauncher.glb-5ca85b3c3f2fbcd6b7efa982aa80a02a.scn" ]
 
 [params]
 
