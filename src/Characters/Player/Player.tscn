@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
 [ext_resource path="res://src/Characters/HealthController.gd" type="Script" id=3]
 [ext_resource path="res://src/Characters/Player/WeaponController.gd" type="Script" id=4]
 [ext_resource path="res://assets/weapons/imports/machete.glb" type="PackedScene" id=5]
+[ext_resource path="res://assets/weapons/imports/machinegun.glb" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -67,6 +68,38 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "Attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0.1 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
 collision_mask = 3
@@ -89,6 +122,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="Machete" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, -0.2 )
+visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/Machete"]
 transform = Transform( 0.991959, 0.126563, 0, -0.126563, 0.991959, 0, 0, 0, 1, 0.014958, 0.0603151, -0.0687385 )
@@ -100,6 +134,7 @@ __meta__ = {
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/Machete"]
+autoplay = "Idle"
 anims/Attack = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 
@@ -107,7 +142,18 @@ anims/Idle = SubResource( 3 )
 visible = false
 
 [node name="MachineGun" type="Spatial" parent="Camera/WeaponController/Weapons"]
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.129154 )
+
+[node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/MachineGun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1 )
+
+[node name="machinegun" parent="Camera/WeaponController/Weapons/MachineGun/Graphics" instance=ExtResource( 6 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/MachineGun"]
+autoplay = "Idle"
+anims/Attack = SubResource( 5 )
+anims/Idle = SubResource( 4 )
 
 [node name="RocketLauncher" type="Spatial" parent="Camera/WeaponController/Weapons"]
 visible = false
