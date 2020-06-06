@@ -21,6 +21,7 @@ func _ready() -> void:
 	character_controller.init(self)
 	health_controller.init()
 	health_controller.connect('dead', self, 'kill')
+	weapon_controller.init($Camera/BulletOrigin, [self])
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed('exit'):
@@ -43,6 +44,8 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed('jump'):
 		character_controller.jump()
+	
+	weapon_controller.attack(Input.is_action_just_pressed('attack'), Input.is_action_pressed('attack'))
 
 
 func _input(event: InputEvent) -> void:

@@ -1,5 +1,5 @@
 extends Spatial
-
+class_name HitScanBulletEmitter
 var hit_effect = preload('res://src/Effects/BulletHitEffect.tscn')
 
 export var distance: int = 10000

@@ -11,11 +11,25 @@ var slots_unlocked: Dictionary = {
 	WEAPON_SLOTS.MACHINE_GUN: true,
 	WEAPON_SLOTS.ROCKET_LAUNCHER: true
 }
-var current_slot = 0
+var current_slot: int = 0
 var current_weapon = null
+var bullet_origin: Spatial = null
+var bodies_to_exclude: Array = []
 
 func _ready() -> void:
 	pass
+
+func init(_bullet_origin: Spatial, _bodies_to_exclude: Array) -> void:
+	bullet_origin = _bullet_origin
+	bodies_to_exclude = _bodies_to_exclude
+	for weapon in weapons:
+		if weapon.has_method('init'):
+			weapon.init(bullet_origin, bodies_to_exclude)
+	switch_to_weapon_index(WEAPON_SLOTS.MACHETE)
+
+func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
+	if current_weapon.has_method('attack'):
+		current_weapon.attack(attack_input_just_pressed, attack_input_held)
 
 func switch_to_next_weapon() -> void:
 	current_slot = (current_slot + 1) % slots_unlocked.size()

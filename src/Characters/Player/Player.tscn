@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/weapons/imports/machinegun.glb" type="PackedScene" id=6]
 [ext_resource path="res://assets/weapons/imports/shotgun.glb" type="PackedScene" id=7]
 [ext_resource path="res://assets/weapons/imports/rocketlauncher.glb" type="PackedScene" id=8]
+[ext_resource path="res://src/Weapons/HitscanBulletEmitter.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Weapons/Weapon.gd" type="Script" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -70,7 +72,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "Attack"
 length = 0.8
 loop = true
@@ -100,7 +102,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 20, 0, 0 ), Vector3( 90, 0, 0 ), Vector3( 90, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "Idle"
 loop = true
 tracks/0/type = "value"
@@ -116,8 +118,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Attack"
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -132,8 +133,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0.1 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Idle"
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -148,7 +148,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 resource_name = "Attack"
 length = 0.2
 loop = true
@@ -177,8 +177,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Idle"
+[sub_resource type="Animation" id=9]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -230,7 +229,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, -0.2 )
 visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/Machete"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -246,6 +244,7 @@ anims/Idle = SubResource( 3 )
 [node name="Shotgun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.25 )
 visible = false
+script = ExtResource( 10 )
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/Shotgun"]
 
@@ -254,12 +253,18 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/Shotgun"]
 autoplay = "Idle"
-anims/Attack = SubResource( 6 )
-anims/Idle = SubResource( 7 )
+anims/Attack = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+
+[node name="BulletEmitter" type="Spatial" parent="Camera/WeaponController/Weapons/Shotgun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000369824, 0.0617378, -0.294372 )
+
+[node name="HitscanBulletEmitter" parent="Camera/WeaponController/Weapons/Shotgun/BulletEmitter" instance=ExtResource( 9 )]
 
 [node name="MachineGun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.3 )
-visible = false
+script = ExtResource( 10 )
+automatic = true
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/MachineGun"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1 )
@@ -269,11 +274,18 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/MachineGun"]
 autoplay = "Idle"
-anims/Attack = SubResource( 5 )
-anims/Idle = SubResource( 4 )
+anims/Attack = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+
+[node name="BulletEmitter" type="Spatial" parent="Camera/WeaponController/Weapons/MachineGun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000369824, 0.0617378, -0.244372 )
+
+[node name="HitscanBulletEmitter" parent="Camera/WeaponController/Weapons/MachineGun/BulletEmitter" instance=ExtResource( 9 )]
 
 [node name="RocketLauncher" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103947, 0.188429, -0.129037 )
+visible = false
+script = ExtResource( 10 )
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
@@ -283,14 +295,19 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/RocketLauncher"]
 autoplay = "Idle"
-anims/Attack = SubResource( 9 )
-anims/Idle = SubResource( 8 )
+anims/Attack = SubResource( 8 )
+anims/Idle = SubResource( 9 )
+
+[node name="BulletEmitter" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00431682, -0.0266912, -0.415335 )
+
+[node name="HitscanBulletEmitter" parent="Camera/WeaponController/Weapons/RocketLauncher/BulletEmitter" instance=ExtResource( 9 )]
+
+[node name="BulletOrigin" type="Spatial" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 
 [node name="CharacterController" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
 [node name="HealthController" type="Spatial" parent="."]
 script = ExtResource( 3 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.486244, -0.873823, 0, 0.873823, 0.486244, 0, 0, 0, 1, 0.761989, 1.36811, 0 )
