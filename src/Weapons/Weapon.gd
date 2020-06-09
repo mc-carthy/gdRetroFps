@@ -31,7 +31,6 @@ func init(_bullet_origin: Spatial, _bodies_to_exclude: Array) -> void:
 		bullet_emitter.set_bodies_to_exclude(bodies_to_exclude)
 
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
-	print(bullet_emitter_node.name)
 	if !can_attack:
 		return
 	if automatic and !attack_input_held:

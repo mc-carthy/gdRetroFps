@@ -71,3 +71,7 @@ func heal(amount: int) -> void:
 func kill() -> void:
 	dead = true
 	character_controller.freeze()
+
+
+func start_flash() -> void:
+	pass # Replace with function body.
