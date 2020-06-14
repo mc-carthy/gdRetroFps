@@ -62,7 +62,9 @@ func _on_attack_finished() -> void:
 
 func set_active() -> void:
 	show()
+	$Crosshair.show()
 
 func set_inactive() -> void:
 	anim_player.play('Idle')
 	hide()
+	$Crosshair.hide()

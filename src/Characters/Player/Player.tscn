@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/Weapons/RocketSpawner.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/weapons/imports/muzzleflash2.glb" type="PackedScene" id=16]
+[ext_resource path="res://assets/weapons/imports/crosshairs/crosshair026.png" type="Texture" id=17]
+[ext_resource path="res://assets/weapons/imports/crosshairs/crosshair001.png" type="Texture" id=18]
+[ext_resource path="res://assets/weapons/imports/crosshairs/crosshair065.png" type="Texture" id=19]
+[ext_resource path="res://assets/weapons/imports/crosshairs/crosshair066.png" type="Texture" id=20]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -254,6 +258,20 @@ anims/Idle = SubResource( 3 )
 [node name="MeleeDamageArea" parent="Camera/WeaponController/Weapons/Machete/BulletEmitter" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
 
+[node name="Crosshair" type="TextureRect" parent="Camera/WeaponController/Weapons/Machete"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Shotgun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.25 )
 visible = false
@@ -295,6 +313,20 @@ transform = Transform( 0.999048, 0, 0.0436194, 0, 1, 0, -0.0436194, 0, 0.999048,
 [node name="HitscanBulletEmitter3" parent="Camera/WeaponController/Weapons/Shotgun/BulletEmitter" instance=ExtResource( 9 )]
 transform = Transform( 0.999048, 0, -0.0436194, 0, 1, 0, 0.0436194, 0, 0.999048, 0, 0, 0 )
 
+[node name="Crosshair" type="TextureRect" parent="Camera/WeaponController/Weapons/Shotgun"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MachineGun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.3 )
 visible = false
@@ -326,8 +358,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000369824, 0.0617378, -0.24
 
 [node name="HitscanBulletEmitter" parent="Camera/WeaponController/Weapons/MachineGun/BulletEmitter" instance=ExtResource( 9 )]
 
+[node name="Crosshair" type="TextureRect" parent="Camera/WeaponController/Weapons/MachineGun"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="RocketLauncher" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103947, 0.188429, -0.129037 )
+visible = false
 script = ExtResource( 10 )
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher"]
@@ -354,6 +401,20 @@ anims/Idle = SubResource( 9 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00431682, -0.0266912, -0.415335 )
 
 [node name="RocketSpawner" parent="Camera/WeaponController/Weapons/RocketLauncher/BulletEmitter" instance=ExtResource( 15 )]
+
+[node name="Crosshair" type="TextureRect" parent="Camera/WeaponController/Weapons/RocketLauncher"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BulletOrigin" type="Spatial" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
