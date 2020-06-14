@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://src/Effects/import/muzzleflash1.glb" type="PackedScene" id=12]
 [ext_resource path="res://assets/weapons/imports/muzzleflash3.glb" type="PackedScene" id=13]
 [ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/Weapons/RocketSpawner.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/weapons/imports/muzzleflash2.glb" type="PackedScene" id=16]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -153,7 +155,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=8]
 resource_name = "Attack"
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
 tracks/0/interp = 1
@@ -228,6 +229,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="Machete" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, -0.2 )
+visible = false
 script = ExtResource( 10 )
 damange = 15
 ammo = -1
@@ -326,7 +328,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000369824, 0.0617378, -0.24
 
 [node name="RocketLauncher" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103947, 0.188429, -0.129037 )
-visible = false
 script = ExtResource( 10 )
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher"]
@@ -334,6 +335,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
 
 [node name="rocketlauncher" parent="Camera/WeaponController/Weapons/RocketLauncher/Graphics" instance=ExtResource( 8 )]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+
+[node name="MuzzleFlash" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher/Graphics"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0650611, -0.235832 )
+script = ExtResource( 11 )
+
+[node name="OmniLight" type="OmniLight" parent="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash"]
+
+[node name="muzzleflash2" parent="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" instance=ExtResource( 16 )]
+transform = Transform( -0.25, 0, -8.14603e-08, 0, 0.25, 0, 8.14603e-08, 0, -0.25, 0, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponController/Weapons/RocketLauncher"]
 autoplay = "Idle"
@@ -343,7 +353,7 @@ anims/Idle = SubResource( 9 )
 [node name="BulletEmitter" type="Spatial" parent="Camera/WeaponController/Weapons/RocketLauncher"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00431682, -0.0266912, -0.415335 )
 
-[node name="HitscanBulletEmitter" parent="Camera/WeaponController/Weapons/RocketLauncher/BulletEmitter" instance=ExtResource( 9 )]
+[node name="RocketSpawner" parent="Camera/WeaponController/Weapons/RocketLauncher/BulletEmitter" instance=ExtResource( 15 )]
 
 [node name="BulletOrigin" type="Spatial" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
@@ -355,3 +365,4 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
+[connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]
