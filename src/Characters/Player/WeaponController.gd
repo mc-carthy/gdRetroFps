@@ -3,6 +3,7 @@ class_name WeaponController
 
 enum WEAPON_SLOTS { MACHETE, SHOTGUN, MACHINE_GUN, ROCKET_LAUNCHER }
 
+onready var anim_player: AnimationPlayer = $AnimationPlayer
 onready var weapons: Array = $Weapons.get_children()
 
 var slots_unlocked: Dictionary = {
@@ -61,3 +62,10 @@ func disable_all_weapons() -> void:
 			weapon.set_inactive()
 		else:
 			weapon.hide()
+
+func update_animation(velocity: Vector3, grounded: bool) -> void:
+	if current_weapon.has_method('is_idle') and not current_weapon.is_idle():
+		anim_player.play('Idle')
+	if !grounded or velocity.length() < 15:
+		anim_player.play('Idle', 0.05)
+	anim_player.play('Moving')

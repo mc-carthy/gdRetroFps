@@ -68,3 +68,6 @@ func set_inactive() -> void:
 	anim_player.play('Idle')
 	hide()
 	$Crosshair.hide()
+
+func is_idle() -> bool:
+	return !anim_player.is_playing() or anim_player.current_animation == 'Idle'
