@@ -42,7 +42,8 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 			emit_signal('out_of_ammo')
 		return
 	
-	ammo -= 1
+	if ammo > 0:
+		ammo -= 1
 	
 	var start_tx: Transform = bullet_emitter_node.global_transform
 	bullet_emitter_node.global_transform = bullet_origin.global_transform

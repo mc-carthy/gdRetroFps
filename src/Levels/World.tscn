@@ -79,4 +79,4 @@ environment = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, -0.809479, 0.587149, 0, -0.587149, -0.809479, 0, 24.4574, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.64466, 1.93406, 3.88174 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 4 )

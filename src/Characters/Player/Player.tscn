@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/Effects/MuzzleFlash.gd" type="Script" id=11]
 [ext_resource path="res://src/Effects/import/muzzleflash1.glb" type="PackedScene" id=12]
 [ext_resource path="res://assets/weapons/imports/muzzleflash3.glb" type="PackedScene" id=13]
+[ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -20,7 +21,6 @@ radius = 0.5
 [sub_resource type="Animation" id=2]
 resource_name = "Attack"
 length = 0.3
-loop = true
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -228,9 +228,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="Machete" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, -0.2 )
-visible = false
+script = ExtResource( 10 )
+damange = 15
+ammo = -1
+attack_rate = 0.4
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponController/Weapons/Machete"]
+transform = Transform( 0.991959, 0.126563, 0, -0.126563, 0.991959, 0, 0, 0, 1, 0.014958, 0.0603151, -0.0687385 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -242,6 +246,11 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 autoplay = "Idle"
 anims/Attack = SubResource( 2 )
 anims/Idle = SubResource( 3 )
+
+[node name="BulletEmitter" type="Spatial" parent="Camera/WeaponController/Weapons/Machete"]
+
+[node name="MeleeDamageArea" parent="Camera/WeaponController/Weapons/Machete/BulletEmitter" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
 
 [node name="Shotgun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.25 )
@@ -286,6 +295,7 @@ transform = Transform( 0.999048, 0, -0.0436194, 0, 1, 0, 0.0436194, 0, 0.999048,
 
 [node name="MachineGun" type="Spatial" parent="Camera/WeaponController/Weapons"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, -0.3 )
+visible = false
 script = ExtResource( 10 )
 automatic = true
 
