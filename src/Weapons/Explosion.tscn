@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/weapons/imports/circle32.png" type="Texture" id=1]
+[ext_resource path="res://src/Weapons/Explosion.gd" type="Script" id=2]
 
 [sub_resource type="SphereShape" id=1]
 radius = 4.0
@@ -43,6 +44,7 @@ color_ramp = SubResource( 4 )
 [node name="Explosion" type="Area"]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
@@ -68,3 +70,9 @@ explosiveness = 0.9
 visibility_aabb = AABB( -50, -50, -50, 100, 100, 100 )
 process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="queue_free"]
