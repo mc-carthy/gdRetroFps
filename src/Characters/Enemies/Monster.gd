@@ -18,13 +18,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	match current_state:
 		STATES.IDLE:
-			pass
+			process_state_idle(delta)
 		STATES.CHASE:
-			pass
+			process_state_chase(delta)
 		STATES.ATTACK:
-			pass
+			process_state_attack(delta)
 		STATES.DEAD:
-			pass
+			process_state_dead(delta)
 
 func set_state_idle() -> void:
 	current_state = STATES.IDLE
@@ -40,6 +40,17 @@ func set_state_dead() -> void:
 	current_state = STATES.DEAD
 	anim_player.play('die')
 
+func process_state_idle(delta: float) -> void:
+	pass
+
+func process_state_chase(delta: float) -> void:
+	pass
+
+func process_state_attack(delta: float) -> void:
+	pass
+
+func process_state_dead(delta: float) -> void:
+	pass
 
 func hurt(damage: int, direction: Vector3) -> void:
 	health_controller.hurt(damage, direction)
