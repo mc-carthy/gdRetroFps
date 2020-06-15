@@ -15,7 +15,7 @@ func set_bodies_to_exclude(value: Array) -> void:
 func fire() -> void:
 	var space_state = get_world().get_direct_space_state()
 	var origin_pos = global_transform.origin
-	var hit = space_state.intersect_ray(origin_pos, origin_pos - global_transform.basis.z * distance, bodies_to_exclude, 1 + 2 + 4, true, true)
+	var hit = space_state.intersect_ray(origin_pos, origin_pos - global_transform.basis.z * distance, bodies_to_exclude, 1 + 4, true, true)
 	if hit and hit.collider.has_method('hurt'):
 		hit.collider.hurt(damage, hit.normal)
 	elif hit:
