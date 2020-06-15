@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.gd" type="Script" id=2]
-[ext_resource path="res://src/Characters/HealthController.gd" type="Script" id=3]
+[ext_resource path="res://src/Characters/HealthController.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Characters/Player/WeaponController.gd" type="Script" id=4]
 [ext_resource path="res://assets/weapons/imports/machete.glb" type="PackedScene" id=5]
 [ext_resource path="res://assets/weapons/imports/machinegun.glb" type="PackedScene" id=6]
@@ -458,8 +458,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 [node name="CharacterController" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
-[node name="HealthController" type="Spatial" parent="."]
-script = ExtResource( 3 )
+[node name="HealthController" parent="." instance=ExtResource( 3 )]
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]

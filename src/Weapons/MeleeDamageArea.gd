@@ -14,5 +14,5 @@ func fire() -> void:
 		if body in bodies_to_exclude:
 			continue
 		if body.has_method('hurt'):
-			body.hurt(damage, global_transform.origin.direction_to(body.global_transfor.origin))
+			body.hurt(damage, global_transform.origin.direction_to(body.global_transform.origin))
 		
