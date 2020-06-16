@@ -83,4 +83,4 @@ transform = Transform( 1, 0, 0, 0, -0.809479, 0.587149, 0, -0.587149, -0.809479,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 4 )
 
 [node name="BirdMonster" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0.5, 5 )
