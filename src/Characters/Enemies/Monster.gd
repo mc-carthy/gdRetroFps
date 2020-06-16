@@ -55,6 +55,9 @@ func start_attack() -> void:
 	anim_player.play('attack')
 	can_attack = false
 
+func emit_attack_signal() -> void:
+	emit_signal('attack')
+
 func _on_attack_finished() -> void:
 	can_attack = true
 	attack_timer.wait_time = attack_rate

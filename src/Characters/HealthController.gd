@@ -28,7 +28,7 @@ func hurt(damage: int, dir: Vector3) -> void:
 	if current_health <= 0:
 		emit_signal('dead')
 	emit_signal('hurt')
-	emit_signal('healh_changed', current_health)
+	emit_signal('health_changed', current_health)
 
 func heal(amount: int) -> void:
 	if current_health <= 0:

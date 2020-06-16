@@ -1,21 +1,23 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/enemies/import/birdmonster.glb" type="PackedScene" id=1]
 [ext_resource path="res://src/Characters/Hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Characters/Enemies/Monster.gd" type="Script" id=3]
 [ext_resource path="res://src/Characters/HealthController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Characters/CharacterController.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Characters/Enemies/AimAtObject.gd" type="Script" id=6]
+[ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape" id=2]
 radius = 0.104376
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.150011, 0.350008, 0.144214 )
 
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="CapsuleShape" id=4]
 radius = 0.0745169
 
 [node name="BirdMonster" type="KinematicBody"]
@@ -41,7 +43,7 @@ bones/8/bound_children = [ NodePath("LegUR") ]
 bones/9/bound_children = [ NodePath("LegLR") ]
 
 [node name="Head" type="BoneAttachment" parent="Model/Armature/Skeleton" index="1"]
-transform = Transform( 1, 0, 2.38418e-07, -8.6824e-08, 0.931334, 0.364166, -2.22047e-07, -0.364166, 0.931334, 0, 1.13977, 0 )
+transform = Transform( 0.986824, 0.158926, -0.0303428, -0.152481, 0.976222, 0.154077, 0.0541082, -0.14742, 0.987593, 0, 1.13977, 0 )
 bone_name = "body"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/Head" instance=ExtResource( 2 )]
@@ -50,97 +52,97 @@ critical_damage_multiplier = 5.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/Head/Hitbox"]
 transform = Transform( 1, -5.32907e-14, -1.56319e-13, 0, 0.990996, -0.1339, 0, 0.1339, 0.990996, -4.9738e-14, 0.484648, 0.236266 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Body" type="BoneAttachment" parent="Model/Armature/Skeleton" index="2"]
-transform = Transform( 1, 0, 2.38418e-07, -8.6824e-08, 0.931334, 0.364166, -2.22047e-07, -0.364166, 0.931334, 0, 1.13977, 0 )
+transform = Transform( 0.986824, 0.158926, -0.0303428, -0.152481, 0.976222, 0.154077, 0.0541082, -0.14742, 0.987593, 0, 1.13977, 0 )
 bone_name = "body"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/Body" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/Body/Hitbox"]
 transform = Transform( 1, -1.42109e-14, -4.26326e-14, 0, 0.990996, -0.1339, 0, 0.1339, 0.990996, -1.42109e-14, 0.285215, 0.0207151 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="ArmUL" type="BoneAttachment" parent="Model/Armature/Skeleton" index="3"]
-transform = Transform( -0.762323, 0.647196, 8.20133e-07, -0.52914, -0.623267, 0.575803, 0.372658, 0.438947, 0.817589, 0.176714, 1.48577, -0.135291 )
+transform = Transform( -0.942926, 0.311305, -0.118232, -0.330216, -0.828304, 0.452626, 0.042973, 0.465836, 0.883827, 0.233428, 1.4755, -0.0452063 )
 bone_name = "upper_arml"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/ArmUL" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/ArmUL/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="ArmUR" type="BoneAttachment" parent="Model/Armature/Skeleton" index="4"]
-transform = Transform( -0.762323, -0.647196, -8.04094e-07, 0.52914, -0.623267, 0.575803, -0.372658, 0.438947, 0.817589, -0.176714, 1.48577, -0.135291 )
+transform = Transform( 0.370798, -0.875865, 0.308821, 0.510622, 0.470023, 0.719961, -0.775741, -0.109269, 0.62152, -0.115343, 1.52939, -0.0643297 )
 bone_name = "upper_armr"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/ArmUR" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/ArmUR/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="ArmLR" type="BoneAttachment" parent="Model/Armature/Skeleton" index="5"]
-transform = Transform( -0.998522, -0.0543442, -6.79123e-07, 0.0332622, -0.611173, 0.790798, -0.0429755, 0.78963, 0.612077, -0.456291, 1.21653, 0.0543261 )
+transform = Transform( 0.725276, -0.625072, 0.288548, 0.351196, 0.696401, 0.625849, -0.592145, -0.352576, 0.724606, -0.4937, 1.73243, -0.111532 )
 bone_name = "lower_armr"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/ArmLR" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/ArmLR/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="ArmLL" type="BoneAttachment" parent="Model/Armature/Skeleton" index="6"]
-transform = Transform( -0.998522, 0.0543442, 6.6465e-07, -0.0332621, -0.611173, 0.790798, 0.0429756, 0.78963, 0.612077, 0.456291, 1.21653, 0.054326 )
+transform = Transform( -0.940191, -0.340632, -0.0033154, 0.24726, -0.689102, 0.681176, -0.234315, 0.639616, 0.732112, 0.367906, 1.11769, 0.156026 )
 bone_name = "lower_arml"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/ArmLL" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/ArmLL/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="LegUL" type="BoneAttachment" parent="Model/Armature/Skeleton" index="7"]
-transform = Transform( -0.782999, 0.14838, 0.604046, 0.0548854, -0.95086, 0.304714, 0.619573, 0.271751, 0.736382, 0.131876, 0.936301, 1.36788e-07 )
+transform = Transform( -0.782991, 0.148378, 0.604052, 0.0548879, -0.950859, 0.304719, 0.619566, 0.271754, 0.736389, 0.131876, 0.936301, 1.37659e-07 )
 bone_name = "upperlegl"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/LegUL" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/LegUL/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="LegLL" type="BoneAttachment" parent="Model/Armature/Skeleton" index="8"]
-transform = Transform( -0.786345, -0.178843, 0.591314, 0.0264683, -0.966051, -0.256987, 0.617196, -0.186426, 0.76439, 0.193832, 0.539271, 0.113469 )
+transform = Transform( -0.786337, -0.178847, 0.591318, 0.0264708, -0.966053, -0.256983, 0.61719, -0.186426, 0.764397, 0.193831, 0.539271, 0.113471 )
 bone_name = "lowerlegl"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/LegLL" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/LegLL/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="LegUR" type="BoneAttachment" parent="Model/Armature/Skeleton" index="9"]
-transform = Transform( -0.782998, -0.148381, -0.604045, -0.0548847, -0.950859, 0.304716, -0.619573, 0.271751, 0.736382, -0.131876, 0.936301, 1.36788e-07 )
+transform = Transform( -0.782991, -0.148378, -0.604051, -0.0548878, -0.950859, 0.304719, -0.619566, 0.271754, 0.736389, -0.131876, 0.936301, 1.37659e-07 )
 bone_name = "upperlegr"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/LegUR" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/LegUR/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="LegLR" type="BoneAttachment" parent="Model/Armature/Skeleton" index="10"]
-transform = Transform( -0.786344, 0.178841, -0.591314, -0.0264676, -0.966051, -0.256985, -0.617197, -0.186425, 0.76439, -0.193832, 0.539271, 0.11347 )
+transform = Transform( -0.786337, 0.178847, -0.591318, -0.0264707, -0.966053, -0.256983, -0.617189, -0.186426, 0.764397, -0.193831, 0.539271, 0.113471 )
 bone_name = "lowerlegr"
 
 [node name="Hitbox" parent="Model/Armature/Skeleton/LegLR" instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/LegLR/Hitbox"]
 transform = Transform( 1, 0, 2.98023e-07, 1.49012e-08, -2.98023e-08, -0.567322, 0, 1, -1.49012e-07, 5.96046e-08, 0.127963, 2.38419e-07 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="HealthController" parent="." instance=ExtResource( 4 )]
 max_health = 20
@@ -149,5 +151,12 @@ max_health = 20
 move_acceleration = 2.0
 max_speed = 10.0
 use_local_rotation = true
+
+[node name="AimAtObject" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.855507, 0.371226 )
+script = ExtResource( 6 )
+
+[node name="MeleeDamageArea" parent="AimAtObject" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 1.16075e-08, 0, 0.195318 )
 
 [editable path="Model"]
