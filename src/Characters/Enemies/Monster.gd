@@ -21,7 +21,7 @@ func _ready() -> void:
 	set_state_idle()
 
 func _process(delta: float) -> void:
-	print(can_see_player())
+
 	match current_state:
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -38,6 +38,7 @@ func set_state_idle() -> void:
 
 func set_state_chase() -> void:
 	current_state = STATES.CHASE
+	print('chasing')
 
 func set_state_attack() -> void:
 	current_state = STATES.ATTACK
@@ -60,12 +61,16 @@ func process_state_dead(delta: float) -> void:
 
 func hurt(damage: int, direction: Vector3) -> void:
 	health_controller.hurt(damage, direction)
+	if current_state == STATES.IDLE:
+		set_state_chase()
 
 func can_see_player() -> bool:
 	return player_within_view_dist() and player_within_view_cone() and has_los_player()
 
 func player_within_view_dist() -> bool:
-	return global_transform.origin.distance_squared_to(player.global_transform.origin) < pow(view_dist, 2)
+	# Currently hard coded to allow weapon area to use distance-based query
+	return true
+	#return global_transform.origin.distance_squared_to(player.global_transform.origin) < pow(view_dist, 2)
 
 func player_within_view_cone() -> bool:
 	var dir_to_player: Vector3 = global_transform.origin.direction_to(player.global_transform.origin)
@@ -83,3 +88,10 @@ func has_los_player() -> bool:
 	if result:
 		 return false
 	return true
+
+func alert(check_los: bool = true) -> void:
+	if current_state == STATES.IDLE:
+		return
+	if check_los and !has_los_player():
+		return
+	set_state_chase()
