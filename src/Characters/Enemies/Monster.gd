@@ -9,6 +9,7 @@ export var view_dist: float = 50
 enum STATES { IDLE, CHASE, ATTACK, DEAD }
 var current_state = STATES.IDLE
 var player = null
+var turn_speed: float = deg2rad(360) 
 
 func _ready() -> void:
 	player = get_tree().get_nodes_in_group('Player')[0]
@@ -21,7 +22,6 @@ func _ready() -> void:
 	set_state_idle()
 
 func _process(delta: float) -> void:
-
 	match current_state:
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -48,10 +48,14 @@ func set_state_dead() -> void:
 	anim_player.play('die')
 
 func process_state_idle(delta: float) -> void:
-	pass
+	if can_see_player():
+		set_state_chase()
 
 func process_state_chase(delta: float) -> void:
-	pass
+	var pos: Vector3 = global_transform.origin
+	var target_pos: Vector3 = player.global_transform.origin
+	var dir: Vector3 = pos.direction_to(target_pos)
+	face_direction(dir, delta)
 
 func process_state_attack(delta: float) -> void:
 	pass
@@ -95,3 +99,20 @@ func alert(check_los: bool = true) -> void:
 	if check_los and !has_los_player():
 		return
 	set_state_chase()
+
+func face_direction(dir: Vector3, delta: float) -> void:
+	var angle_diff: float = global_transform.basis.z.angle_to(dir)
+	var turn_right: float = sign(global_transform.basis.x.dot(dir))
+	if abs(angle_diff) < turn_speed * delta:
+		rotation.y = atan2(dir.x, dir.z)
+	else:
+		rotation.y += turn_speed * delta * turn_right
+	
+	
+	
+	
+	
+	
+	
+	
+	
