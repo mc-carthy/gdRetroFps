@@ -2,6 +2,8 @@ extends KinematicBody
 
 onready var anim_player: AnimationPlayer = $Model/AnimationPlayer
 onready var health_controller: HealthController = $HealthController
+onready var character_controller: CharacterController = $CharacterController
+onready var nav: Navigation = get_parent()
 
 export var view_angle: float = 45
 export var view_dist: float = 50
@@ -9,7 +11,8 @@ export var view_dist: float = 50
 enum STATES { IDLE, CHASE, ATTACK, DEAD }
 var current_state = STATES.IDLE
 var player = null
-var turn_speed: float = deg2rad(360) 
+var turn_speed: float = 360
+var path_to_target: Array = []
 
 func _ready() -> void:
 	player = get_tree().get_nodes_in_group('Player')[0]
@@ -19,6 +22,7 @@ func _ready() -> void:
 			if child is HitBox:
 				child.connect('hurt', self, 'hurt')
 	health_controller.connect('dead', self, 'set_state_dead')
+	character_controller.init(self)
 	set_state_idle()
 
 func _process(delta: float) -> void:
@@ -38,6 +42,7 @@ func set_state_idle() -> void:
 
 func set_state_chase() -> void:
 	current_state = STATES.CHASE
+	anim_player.play('walk_loop', 0.2)
 	print('chasing')
 
 func set_state_attack() -> void:
@@ -46,6 +51,8 @@ func set_state_attack() -> void:
 func set_state_dead() -> void:
 	current_state = STATES.DEAD
 	anim_player.play('die')
+	character_controller.freeze()
+	$CollisionShape.disabled = true
 
 func process_state_idle(delta: float) -> void:
 	if can_see_player():
@@ -54,7 +61,13 @@ func process_state_idle(delta: float) -> void:
 func process_state_chase(delta: float) -> void:
 	var pos: Vector3 = global_transform.origin
 	var target_pos: Vector3 = player.global_transform.origin
-	var dir: Vector3 = pos.direction_to(target_pos)
+	path_to_target = nav.get_simple_path(pos, target_pos)
+	var next_waypoint: Vector3 = target_pos
+	if path_to_target.size() > 1:
+		next_waypoint = path_to_target[1]
+	var dir: Vector3 = pos.direction_to(next_waypoint)
+	dir.y = 0
+	character_controller.set_move_vector(dir)
 	face_direction(dir, delta)
 
 func process_state_attack(delta: float) -> void:
@@ -103,10 +116,10 @@ func alert(check_los: bool = true) -> void:
 func face_direction(dir: Vector3, delta: float) -> void:
 	var angle_diff: float = global_transform.basis.z.angle_to(dir)
 	var turn_right: float = sign(global_transform.basis.x.dot(dir))
-	if abs(angle_diff) < turn_speed * delta:
+	if abs(angle_diff) < deg2rad(turn_speed) * delta:
 		rotation.y = atan2(dir.x, dir.z)
 	else:
-		rotation.y += turn_speed * delta * turn_right
+		rotation.y += deg2rad(turn_speed) * delta * turn_right
 	
 	
 	
