@@ -70,6 +70,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 100,
 [node name="Navigation" type="Navigation" parent="."]
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+visible = false
 navmesh = SubResource( 4 )
 
 [node name="BirdMonster" parent="Navigation" instance=ExtResource( 5 )]

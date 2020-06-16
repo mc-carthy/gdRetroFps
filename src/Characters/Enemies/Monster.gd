@@ -1,20 +1,33 @@
 extends KinematicBody
 
+signal attack
+
+enum STATES { IDLE, CHASE, ATTACK, DEAD }
+
+export var view_angle: float = 45
+export var view_dist: float = 50
+export var turn_speed: float = 360
+export var attack_distance: float = 2
+export var attack_rate: float = 1
+
 onready var anim_player: AnimationPlayer = $Model/AnimationPlayer
 onready var health_controller: HealthController = $HealthController
 onready var character_controller: CharacterController = $CharacterController
 onready var nav: Navigation = get_parent()
 
-export var view_angle: float = 45
-export var view_dist: float = 50
-
-enum STATES { IDLE, CHASE, ATTACK, DEAD }
 var current_state = STATES.IDLE
 var player = null
-var turn_speed: float = 360
 var path_to_target: Array = []
+var attack_timer: Timer
+var can_attack: bool = true
 
 func _ready() -> void:
+	attack_timer = Timer.new()
+	attack_timer.wait_time = attack_rate
+	attack_timer.connect('timeout', self, '_on_attack_finished')
+	attack_timer.one_shot = true
+	add_child((attack_timer))
+	
 	player = get_tree().get_nodes_in_group('Player')[0]
 	var bone_attachments: Array = $Model/Armature/Skeleton.get_children()
 	for bone_attachment in bone_attachments:
@@ -35,6 +48,15 @@ func _process(delta: float) -> void:
 			process_state_attack(delta)
 		STATES.DEAD:
 			process_state_dead(delta)
+
+func start_attack() -> void:
+	attack_timer.start()
+	anim_player.play('attack')
+	can_attack = false
+
+func _on_attack_finished() -> void:
+	can_attack = true
+	attack_timer.wait_time = attack_rate
 
 func set_state_idle() -> void:
 	current_state = STATES.IDLE
@@ -59,6 +81,9 @@ func process_state_idle(delta: float) -> void:
 		set_state_chase()
 
 func process_state_chase(delta: float) -> void:
+	if within_attack_range_of_player() and has_los_player():
+		set_state_attack()
+		return
 	var pos: Vector3 = global_transform.origin
 	var target_pos: Vector3 = player.global_transform.origin
 	path_to_target = nav.get_simple_path(pos, target_pos)
@@ -71,7 +96,12 @@ func process_state_chase(delta: float) -> void:
 	face_direction(dir, delta)
 
 func process_state_attack(delta: float) -> void:
-	pass
+	character_controller.set_move_vector(Vector3.ZERO)
+	#face_direction(global_transform.origin.direction_to(player.global_transform.origin), delta)
+	if can_attack:
+		start_attack()
+	if !within_attack_range_of_player() or !can_see_player():
+		set_state_chase()
 
 func process_state_dead(delta: float) -> void:
 	pass
@@ -120,12 +150,12 @@ func face_direction(dir: Vector3, delta: float) -> void:
 		rotation.y = atan2(dir.x, dir.z)
 	else:
 		rotation.y += deg2rad(turn_speed) * delta * turn_right
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+func within_attack_range_of_player() ->  bool:
+	return global_transform.origin.distance_squared_to(player.global_transform.origin) < pow(attack_distance, 2)
+
+
+
+
+
+
