@@ -51,6 +51,7 @@ func _process(delta: float) -> void:
 
 func start_attack() -> void:
 	attack_timer.start()
+	anim_player.stop()
 	anim_player.play('attack')
 	can_attack = false
 
@@ -60,18 +61,20 @@ func _on_attack_finished() -> void:
 
 func set_state_idle() -> void:
 	current_state = STATES.IDLE
+	anim_player.stop()
 	anim_player.play('idle_loop')
 
 func set_state_chase() -> void:
 	current_state = STATES.CHASE
-	anim_player.play('walk_loop', 0.2)
-	print('chasing')
+	anim_player.stop()
+	anim_player.play('walk_loop')
 
 func set_state_attack() -> void:
 	current_state = STATES.ATTACK
 
 func set_state_dead() -> void:
 	current_state = STATES.DEAD
+	anim_player.stop()
 	anim_player.play('die')
 	character_controller.freeze()
 	$CollisionShape.disabled = true
@@ -99,9 +102,10 @@ func process_state_attack(delta: float) -> void:
 	character_controller.set_move_vector(Vector3.ZERO)
 	#face_direction(global_transform.origin.direction_to(player.global_transform.origin), delta)
 	if can_attack:
-		start_attack()
-	if !within_attack_range_of_player() or !can_see_player():
-		set_state_chase()
+		if !within_attack_range_of_player() or !can_see_player():
+			set_state_chase()
+		else:
+			start_attack()
 
 func process_state_dead(delta: float) -> void:
 	pass
@@ -137,7 +141,7 @@ func has_los_player() -> bool:
 	return true
 
 func alert(check_los: bool = true) -> void:
-	if current_state == STATES.IDLE:
+	if current_state != STATES.IDLE:
 		return
 	if check_los and !has_los_player():
 		return
