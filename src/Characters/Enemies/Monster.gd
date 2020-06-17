@@ -160,9 +160,3 @@ func face_direction(dir: Vector3, delta: float) -> void:
 
 func within_attack_range_of_player() ->  bool:
 	return global_transform.origin.distance_squared_to(player.global_transform.origin) < pow(attack_distance, 2)
-
-
-
-
-
-

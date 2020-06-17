@@ -17,6 +17,7 @@ func _physics_process(delta: float) -> void:
 		if collider.has_method('hurt'):
 			collider.hurt(impact_damage, -global_transform.basis.z)
 		$DestroyAfter.start()
+		$CollisionShape.disabled = true
 		$SmokeParticles.emitting = true
 		$Graphics.hide()
 		speed = 0
