@@ -29,6 +29,15 @@ attack_distance = 100.0
 
 [node name="Model" parent="." instance=ExtResource( 1 )]
 
+[node name="Skeleton" parent="Model/Armature" index="0"]
+bones/1/bound_children = [ NodePath("Head"), NodePath("Body") ]
+bones/2/bound_children = [ NodePath("ArmUL") ]
+bones/3/bound_children = [ NodePath("ArmLL") ]
+bones/4/bound_children = [ NodePath("ArmUR") ]
+bones/5/bound_children = [ NodePath("ArmLR") ]
+bones/7/bound_children = [ NodePath("LegLL") ]
+bones/9/bound_children = [ NodePath("LegLR") ]
+
 [node name="Head" type="BoneAttachment" parent="Model/Armature/Skeleton" index="1"]
 transform = Transform( 1, -4.25214e-08, -2.29664e-07, -4.42134e-08, 0.931049, -0.364894, 2.29344e-07, 0.364894, 0.931049, 2.84689e-18, 1.20205, -0.042127 )
 bone_name = "body"

@@ -9,6 +9,7 @@ export var view_dist: float = 50
 export var turn_speed: float = 360
 export var attack_distance: float = 2
 export var attack_rate: float = 1
+export var attack_angle: float = 5
 
 onready var anim_player: AnimationPlayer = $Model/AnimationPlayer
 onready var health_controller: HealthController = $HealthController
@@ -103,7 +104,8 @@ func process_state_chase(delta: float) -> void:
 
 func process_state_attack(delta: float) -> void:
 	character_controller.set_move_vector(Vector3.ZERO)
-	#face_direction(global_transform.origin.direction_to(player.global_transform.origin), delta)
+	if !player_within_angle(attack_angle):
+		face_direction(global_transform.origin.direction_to(player.global_transform.origin), delta)
 	if can_attack:
 		if !within_attack_range_of_player() or !can_see_player():
 			set_state_chase()
@@ -119,18 +121,19 @@ func hurt(damage: int, direction: Vector3) -> void:
 		set_state_chase()
 
 func can_see_player() -> bool:
-	return player_within_view_dist() and player_within_view_cone() and has_los_player()
+	return player_within_view_dist() and player_within_angle(view_angle) and has_los_player()
+	
 
 func player_within_view_dist() -> bool:
 	# Currently hard coded to allow weapon area to use distance-based query
 	return true
 	#return global_transform.origin.distance_squared_to(player.global_transform.origin) < pow(view_dist, 2)
 
-func player_within_view_cone() -> bool:
+func player_within_angle(angle: float) -> bool:
 	var dir_to_player: Vector3 = global_transform.origin.direction_to(player.global_transform.origin)
 	var forward_vector: Vector3 = global_transform.basis.z
 	var angle_to_player: float = rad2deg(forward_vector.angle_to(dir_to_player))
-	return angle_to_player < view_angle
+	return angle_to_player < angle
 
 func has_los_player() -> bool:
 	# The monster/player origins are on the floor, raise them to eye level to prevent unintentional collisions
