@@ -77,6 +77,9 @@ navmesh = SubResource( 4 )
 [node name="BirdMonster" parent="Navigation" instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0.5, 5 )
 
+[node name="ReptileMonster" parent="Navigation" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.2356 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
 
@@ -85,6 +88,3 @@ transform = Transform( 1, 0, 0, 0, -0.809479, 0.587149, 0, -0.587149, -0.809479,
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 4 )
-
-[node name="ReptileMonster" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.2356 )

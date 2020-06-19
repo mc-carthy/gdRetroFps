@@ -12,6 +12,7 @@ export var gib_at: int = -10
 
 var current_health: int = 0
 var blood_splatter = preload('res://src/Effects/BloodSplatter.tscn')
+var gibs = preload('res://src/Effects/Gibs.tscn')
 
 func _ready() -> void:
 	init()
@@ -26,6 +27,7 @@ func hurt(damage: int, dir: Vector3) -> void:
 		return
 	current_health -= damage
 	if current_health <= gib_at:
+		spawn_gibs()
 		emit_signal('gibbed')
 	if current_health <= 0:
 		emit_signal('dead')
@@ -56,3 +58,9 @@ func spawn_blood(dir: Vector3) -> void:
 	var z: Vector3 = x.cross(y)
 	
 	blood_splatter_instance.global_transform.basis = Basis(x, y, z)
+
+func spawn_gibs() -> void:
+	var gibs_instance = gibs.instance()
+	get_tree().get_root().add_child(gibs_instance)
+	gibs_instance.global_transform.origin = global_transform.origin
+	gibs_instance.enable_gibs()

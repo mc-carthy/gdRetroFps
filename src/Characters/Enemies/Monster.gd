@@ -36,6 +36,7 @@ func _ready() -> void:
 			if child is HitBox:
 				child.connect('hurt', self, 'hurt')
 	health_controller.connect('dead', self, 'set_state_dead')
+	health_controller.connect('gibbed', $Model, 'hide')
 	character_controller.init(self)
 	set_state_idle()
 
