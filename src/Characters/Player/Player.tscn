@@ -22,7 +22,8 @@
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair066.png" type="Texture" id=20]
 [ext_resource path="res://src/Characters/Player/PickupController.gd" type="Script" id=21]
 [ext_resource path="res://assets/ui/crypt_domino_1b.png" type="Texture" id=22]
-[ext_resource path="res://assets/ui/KLEINTEN.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://src/UI/kleintenFont32.tres" type="DynamicFont" id=23]
+[ext_resource path="res://src/Characters/Player/Stats.gd" type="Script" id=24]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -254,10 +255,6 @@ radius = 25.0
 [sub_resource type="CapsuleShape" id=14]
 radius = 0.75
 height = 0.5
-
-[sub_resource type="DynamicFont" id=15]
-size = 32
-font_data = ExtResource( 23 )
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -505,6 +502,7 @@ shape = SubResource( 14 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RestartMessage" type="Label" parent="CanvasLayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -513,7 +511,7 @@ margin_left = -138.0
 margin_top = -18.0
 margin_right = 138.0
 margin_bottom = 18.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = ExtResource( 23 )
 text = "Press 'R' to restart"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -534,7 +532,22 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Stats" type="Label" parent="CanvasLayer"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 171.377
+margin_bottom = 102.541
+custom_fonts/font = ExtResource( 23 )
+text = "Health: 0
+Ammo: 0"
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="ammo_changed" from="Camera/WeaponController" to="CanvasLayer/Stats" method="update_ammo"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="dead" from="HealthController" to="CanvasLayer/RestartMessage" method="show"]
+[connection signal="health_changed" from="HealthController" to="CanvasLayer/Stats" method="update_health"]
