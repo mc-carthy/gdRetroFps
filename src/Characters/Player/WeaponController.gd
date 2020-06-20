@@ -90,7 +90,7 @@ func update_animation(velocity: Vector3, grounded: bool) -> void:
 		anim_player.play('Idle', 0.05)
 	anim_player.play('Moving')
 
-func got_pickup(pickup_type: String, amount: int) -> void:
+func got_pickup(pickup_type: int, amount: int) -> void:
 	match pickup_type:
 		Pickup.PICKUP_TYPES.MACHINE_GUN:
 			if !slots_unlocked[WEAPON_SLOTS.MACHINE_GUN]:

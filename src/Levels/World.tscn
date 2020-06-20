@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/env/imports/grass_lowres.png" type="Texture" id=1]
 [ext_resource path="res://assets/env/brickwall.tscn" type="PackedScene" id=2]
@@ -6,6 +6,13 @@
 [ext_resource path="res://src/Characters/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Characters/Enemies/BirdMonster.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Characters/Enemies/ReptileMonster.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Pickups/MachineGunPickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Pickups/MachineGunAmmoPickup.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Pickups/HealthPickup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Pickups/ShotgunAmmoPickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Pickups/RocketLauncherPickup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/Pickups/RocketLauncherAmmoPickup.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/Pickups/ShotgunPickup.tscn" type="PackedScene" id=13]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
@@ -88,3 +95,26 @@ transform = Transform( 1, 0, 0, 0, -0.809479, 0.587149, 0, -0.587149, -0.809479,
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 4 )
+
+[node name="Pickups" type="Spatial" parent="."]
+
+[node name="HealthPickup" parent="Pickups" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.22295 )
+
+[node name="MachineGunAmmoPickup" parent="Pickups" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32928, 1, -9.25831 )
+
+[node name="MachineGunPickup" parent="Pickups" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.17673, 1, -9.04267 )
+
+[node name="ShotgunPickup" parent="Pickups" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.55059, 1, -9.37718 )
+
+[node name="ShotgunAmmoPickup" parent="Pickups" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3977, 1, -9.04057 )
+
+[node name="RocketLauncherPickup" parent="Pickups" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0953, 1, -9.23177 )
+
+[node name="RocketLauncherAmmoPickup" parent="Pickups" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0994, 1, -8.959 )

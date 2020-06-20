@@ -65,7 +65,7 @@ func spawn_gibs() -> void:
 	gibs_instance.global_transform.origin = global_transform.origin
 	gibs_instance.enable_gibs()
 
-func got_pickup(pickup_type: String, amount: int) -> void:
+func got_pickup(pickup_type: int, amount: int) -> void:
 	match pickup_type:
 		Pickup.PICKUP_TYPES.HEALTH:
 			heal(amount)

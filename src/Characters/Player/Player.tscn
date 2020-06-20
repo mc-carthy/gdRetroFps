@@ -488,7 +488,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 [node name="HealthController" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
-max_health = 1
 
 [node name="PickupController" type="Area" parent="."]
 collision_layer = 0

@@ -21,7 +21,8 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_controller.init(self)
 	pickup_controller.max_player_health = health_controller.max_health
-	health_controller.connect('health_changed', self, 'update_player_health')
+	pickup_controller.current_player_health = pickup_controller.max_player_health
+	health_controller.connect('health_changed', pickup_controller, 'update_player_health')
 	pickup_controller.connect('got_pickup', weapon_controller, 'got_pickup')
 	pickup_controller.connect('got_pickup', health_controller, 'got_pickup')
 	health_controller.init()
