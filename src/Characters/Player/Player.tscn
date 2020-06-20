@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair001.png" type="Texture" id=18]
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair065.png" type="Texture" id=19]
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair066.png" type="Texture" id=20]
+[ext_resource path="res://src/Characters/Player/PickupController.gd" type="Script" id=21]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -247,6 +248,10 @@ radius = 10.0
 
 [sub_resource type="SphereShape" id=13]
 radius = 25.0
+
+[sub_resource type="CapsuleShape" id=14]
+radius = 0.75
+height = 0.5
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -480,6 +485,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 [node name="HealthController" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
+
+[node name="PickupController" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 21 )
+
+[node name="CollisionShape" type="CollisionShape" parent="PickupController"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
+shape = SubResource( 14 )
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]

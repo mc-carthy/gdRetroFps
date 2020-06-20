@@ -13,12 +13,17 @@ onready var camera: Camera = $Camera
 onready var character_controller: CharacterController = $CharacterController
 onready var health_controller: HealthController = $HealthController
 onready var weapon_controller: WeaponController = $Camera/WeaponController
+onready var pickup_controller: PickupController = $PickupController
 
 var dead: bool = false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_controller.init(self)
+	pickup_controller.max_player_health = health_controller.max_health
+	health_controller.connect('health_changed', self, 'update_player_health')
+	pickup_controller.connect('got_pickup', weapon_controller, 'got_pickup')
+	pickup_controller.connect('got_pickup', health_controller, 'got_pickup')
 	health_controller.init()
 	health_controller.connect('dead', self, 'kill')
 	weapon_controller.init($Camera/BulletOrigin, [self])

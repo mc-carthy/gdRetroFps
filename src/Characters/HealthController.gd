@@ -64,3 +64,8 @@ func spawn_gibs() -> void:
 	get_tree().get_root().add_child(gibs_instance)
 	gibs_instance.global_transform.origin = global_transform.origin
 	gibs_instance.enable_gibs()
+
+func got_pickup(pickup_type: String, amount: int) -> void:
+	match pickup_type:
+		Pickup.PICKUP_TYPES.HEALTH:
+			heal(amount)
