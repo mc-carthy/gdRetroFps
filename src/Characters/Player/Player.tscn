@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.tscn" type="PackedScene" id=2]
@@ -255,6 +255,77 @@ radius = 25.0
 [sub_resource type="CapsuleShape" id=14]
 radius = 0.75
 height = 0.5
+
+[sub_resource type="Animation" id=17]
+resource_name = "Heal"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.74902, 0, 0.498039 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "Hurt"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.74902, 0, 0, 0.498039 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "Start"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -544,9 +615,26 @@ script = ExtResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HealthEffects" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/HealthEffects"]
+autoplay = "Start"
+anims/Heal = SubResource( 17 )
+anims/Hurt = SubResource( 16 )
+anims/Start = SubResource( 15 )
 [connection signal="ammo_changed" from="Camera/WeaponController" to="CanvasLayer/Stats" method="update_ammo"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="dead" from="HealthController" to="CanvasLayer/RestartMessage" method="show"]
+[connection signal="healed" from="HealthController" to="CanvasLayer/HealthEffects/AnimationPlayer" method="play" binds= [ "Heal" ]]
 [connection signal="health_changed" from="HealthController" to="CanvasLayer/Stats" method="update_health"]
+[connection signal="hurt" from="HealthController" to="CanvasLayer/HealthEffects/AnimationPlayer" method="play" binds= [ "Hurt" ]]
