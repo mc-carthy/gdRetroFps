@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Weapons/HitscanBulletEmitter.gd"
 }, {
+"base": "Area",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://src/Pickups/Pickup.gd"
+}, {
 "base": "Spatial",
 "class": "WeaponController",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "HealthController": "",
 "HitBox": "",
 "HitScanBulletEmitter": "",
+"Pickup": "",
 "WeaponController": ""
 }
 
@@ -119,6 +125,7 @@ restart={
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Characters"
 3d_physics/layer_3="Hitboxes"
+3d_physics/layer_4="pickups"
 
 [rendering]
 
