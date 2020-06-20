@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/CharacterController.tscn" type="PackedScene" id=2]
@@ -21,6 +21,8 @@
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair065.png" type="Texture" id=19]
 [ext_resource path="res://assets/weapons/imports/crosshairs/crosshair066.png" type="Texture" id=20]
 [ext_resource path="res://src/Characters/Player/PickupController.gd" type="Script" id=21]
+[ext_resource path="res://assets/ui/crypt_domino_1b.png" type="Texture" id=22]
+[ext_resource path="res://assets/ui/KLEINTEN.ttf" type="DynamicFontData" id=23]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -252,6 +254,10 @@ radius = 25.0
 [sub_resource type="CapsuleShape" id=14]
 radius = 0.75
 height = 0.5
+
+[sub_resource type="DynamicFont" id=15]
+size = 32
+font_data = ExtResource( 23 )
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -485,6 +491,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 [node name="HealthController" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
+max_health = 1
 
 [node name="PickupController" type="Area" parent="."]
 collision_layer = 0
@@ -494,6 +501,40 @@ script = ExtResource( 21 )
 [node name="CollisionShape" type="CollisionShape" parent="PickupController"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
 shape = SubResource( 14 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RestartMessage" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -138.0
+margin_top = -18.0
+margin_right = 138.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 15 )
+text = "Press 'R' to restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RestartMessage"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -143.0
+margin_top = -23.0
+margin_right = 143.0
+margin_bottom = 23.0
+texture = ExtResource( 22 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="fired" from="Camera/WeaponController/Weapons/Shotgun" to="Camera/WeaponController/Weapons/Shotgun/Graphics/Muzzleflash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/MachineGun" to="Camera/WeaponController/Weapons/MachineGun/Graphics/MuzzleFlash" method="start_flash"]
 [connection signal="fired" from="Camera/WeaponController/Weapons/RocketLauncher" to="Camera/WeaponController/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="start_flash"]
+[connection signal="dead" from="HealthController" to="CanvasLayer/RestartMessage" method="show"]
